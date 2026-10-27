@@ -1,0 +1,146 @@
+/* ============================================================
+   NoteSphere Upload Styles - upload.css
+   Modern PDF Dropzone and Submission Form
+   ============================================================ */
+
+.upload-container {
+  max-width: 760px;
+  margin: 40px auto;
+  padding: 0 16px;
+}
+
+.upload-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 36px;
+  box-shadow: var(--shadow-card);
+}
+
+.upload-header {
+  margin-bottom: 28px;
+}
+
+.upload-header h1 {
+  font-size: 1.75rem;
+  margin-bottom: 8px;
+}
+
+.upload-header p {
+  color: var(--color-muted);
+  font-size: 0.9375rem;
+}
+
+/* Dropzone */
+.dropzone {
+  border: 2px dashed #93C5FD;
+  background-color: #F8FAFC;
+  border-radius: var(--radius-lg);
+  padding: 40px 24px;
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  margin-bottom: 24px;
+  position: relative;
+}
+
+.dropzone:hover, .dropzone.dragover {
+  border-color: var(--color-primary);
+  background-color: var(--color-primary-light);
+}
+
+.dropzone-icon {
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 16px;
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dropzone-text {
+  font-size: 1.0625rem;
+  font-weight: 600;
+  color: var(--color-heading);
+  margin-bottom: 6px;
+}
+
+.dropzone-subtext {
+  font-size: 0.8125rem;
+  color: var(--color-muted);
+}
+
+/* File Selected Preview */
+.file-selected-box {
+  display: none;
+  background-color: #EFF6FF;
+  border: 1px solid #BFDBFE;
+  border-radius: var(--radius-md);
+  padding: 16px;
+  margin-bottom: 24px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.file-selected-box.active {
+  display: flex;
+}
+
+.file-selected-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.file-selected-name {
+  font-weight: 600;
+  color: var(--color-heading);
+  font-size: 0.9375rem;
+}
+
+.file-selected-size {
+  font-size: 0.8125rem;
+  color: var(--color-muted);
+}
+
+.remove-file-btn {
+  background: none;
+  border: none;
+  color: var(--color-error);
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+/* Upload Progress */
+.upload-progress-wrapper {
+  display: none;
+  margin-bottom: 20px;
+}
+
+.upload-progress-wrapper.active {
+  display: block;
+}
+
+.progress-bar-container {
+  height: 8px;
+  background-color: var(--color-border);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background-color: var(--color-primary);
+  width: 0%;
+  transition: width 200ms ease;
+}
+
+.progress-label {
+  font-size: 0.8125rem;
+  color: var(--color-muted);
+  display: flex;
+  justify-content: space-between;
+}

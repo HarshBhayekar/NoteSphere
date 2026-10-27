@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Note Details | NoteSphere</title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/responsive.css" />
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <div class="container">
+      <a href="/" class="nav-brand">
+        <img src="/assets/logo.svg" alt="NoteSphere Logo" width="32" height="32" />
+        <span>NoteSphere</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/browse.html">Browse Notes</a></li>
+      </ul>
+
+      <div class="nav-actions" id="nav-auth-container">
+        <a href="/login.html" class="btn btn-secondary btn-sm">Sign In</a>
+        <a href="/register.html" class="btn btn-primary btn-sm">Get Started</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="container" style="padding-top: 36px; padding-bottom: 60px;">
+    <!-- Back Link -->
+    <div style="margin-bottom: 24px;">
+      <a href="/browse.html" style="font-weight: 500; display: inline-flex; align-items: center; gap: 6px;">
+        &larr; Back to Browse Notes
+      </a>
+    </div>
+
+    <!-- Status Alert if not approved -->
+    <div id="note-status-container"></div>
+
+    <!-- 2-Column Details Grid -->
+    <div class="note-details-container" style="display: grid; grid-template-columns: 2fr 1fr; gap: 32px; align-items: start;">
+      <!-- Left Column: Details -->
+      <div style="background-color: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 32px; box-shadow: var(--shadow-subtle);">
+        <div style="display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap;">
+          <span id="note-semester" class="sem-badge">Semester</span>
+          <span id="note-subject" class="status-pill" style="background:#EFF6FF; color:var(--color-primary);">Subject</span>
+        </div>
+
+        <h1 id="note-title" style="margin-bottom: 20px; font-size: 2rem;">Loading Note Title...</h1>
+
+        <div style="margin-bottom: 24px;">
+          <h3 style="margin-bottom: 10px; font-size: 1rem; color: var(--color-heading);">Description & Overview</h3>
+          <p id="note-description" style="color: var(--color-body); line-height: 1.6; white-space: pre-line;">
+            Loading description...
+          </p>
+        </div>
+
+        <!-- Tags -->
+        <div style="margin-bottom: 28px;">
+          <h4 style="font-size: 0.875rem; color: var(--color-muted); margin-bottom: 8px;">Tags</h4>
+          <div id="note-tags" style="display: flex; gap: 8px; flex-wrap: wrap;"></div>
+        </div>
+
+        <!-- Metadata Attribution -->
+        <div style="padding-top: 20px; border-top: 1px solid var(--color-border); display: flex; justify-content: space-between; font-size: 0.875rem; color: var(--color-muted);">
+          <div>
+            Uploaded by: <strong id="note-uploader" style="color: var(--color-heading);">Student</strong>
+          </div>
+          <div>
+            Uploaded on: <strong id="note-date" style="color: var(--color-heading);">Recently</strong>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Download Card -->
+      <div style="background-color: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 32px; box-shadow: var(--shadow-subtle); text-align: center;">
+        <div style="width: 64px; height: 64px; border-radius: 16px; background-color: #FEE2E2; color: #DC2626; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.25rem; margin: 0 auto 16px;">
+          PDF
+        </div>
+
+        <h3 style="margin-bottom: 6px;">Document Asset</h3>
+        <p style="font-size: 0.875rem; color: var(--color-muted); margin-bottom: 20px;">
+          Verified academic material.
+        </p>
+
+        <div style="background-color: #F8FAFC; border-radius: var(--radius-md); padding: 14px; margin-bottom: 24px; text-align: left; font-size: 0.875rem;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+            <span style="color: var(--color-muted);">File Format:</span>
+            <strong>PDF</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+            <span style="color: var(--color-muted);">File Size:</span>
+            <strong id="note-size">--</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span style="color: var(--color-muted);">Total Downloads:</span>
+            <strong id="note-downloads">--</strong>
+          </div>
+        </div>
+
+        <!-- Action Button -->
+        <a id="download-btn" href="#" class="btn btn-primary btn-lg" style="width: 100%; margin-bottom: 12px;">
+          Download PDF
+        </a>
+
+        <p style="font-size: 0.75rem; color: var(--color-muted);">
+          Stored securely in Cloudinary asset storage.
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div><strong>NoteSphere</strong> — Cloud-Based Notes Sharing Platform</div>
+      <div><span>All Rights Reserved NoteSphere @ 2026 | Harsh Bhayekar</span></div>
+    </div>
+  </footer>
+
+  <!-- Firebase SDK (Compat) -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  <script src="/js/firebase-config.js"></script>
+  <script src="/js/utils.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/note-details.js"></script>
+</body>
+</html>

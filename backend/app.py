@@ -20,7 +20,9 @@ from backend.routes.notes import notes_bp
 from backend.routes.admin import admin_bp
 from backend.utils.responses import error_response
 
-FRONTEND_DIR = PROJECT_ROOT / "frontend"
+FRONTEND_DIR = PROJECT_ROOT / "public"
+if not FRONTEND_DIR.exists():
+    FRONTEND_DIR = PROJECT_ROOT / "frontend"
 
 def create_app():
     """Application factory for NoteSphere Flask Backend."""
@@ -37,6 +39,21 @@ def create_app():
     app.register_blueprint(notes_bp)
     app.register_blueprint(admin_bp)
 
+    # API Root endpoint
+    @app.route("/api", methods=["GET"])
+    @app.route("/api/", methods=["GET"])
+    def api_root():
+        return jsonify({
+            "status": "healthy",
+            "service": "NoteSphere Backend API",
+            "version": "1.1",
+            "endpoints": {
+                "health": "/api/health",
+                "notes": "/api/notes",
+                "subjects": "/api/subjects"
+            }
+        }), 200
+
     # Health check endpoint
     @app.route("/api/health", methods=["GET"])
     def health_check():
@@ -52,7 +69,9 @@ def create_app():
     # Serve Frontend UI
     @app.route("/")
     def serve_index():
-        return send_from_directory(str(FRONTEND_DIR), "index.html")
+        if (FRONTEND_DIR / "index.html").exists():
+            return send_from_directory(str(FRONTEND_DIR), "index.html")
+        return jsonify({"service": "NoteSphere Backend", "status": "running"}), 200
 
     @app.route("/<path:path>")
     def serve_frontend_files(path):
@@ -63,8 +82,10 @@ def create_app():
         html_target = FRONTEND_DIR / f"{path}.html"
         if html_target.exists():
             return send_from_directory(str(FRONTEND_DIR), f"{path}.html")
-        # Default fallback to 404
-        return send_from_directory(str(FRONTEND_DIR), "index.html")
+        # Default fallback to index.html if present
+        if (FRONTEND_DIR / "index.html").exists():
+            return send_from_directory(str(FRONTEND_DIR), "index.html")
+        return error_response("The requested resource or endpoint was not found.", 404)
 
     # Global Error Handlers
     @app.errorhandler(413)
