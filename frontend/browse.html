@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Browse Notes | NoteSphere</title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/responsive.css" />
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <div class="container">
+      <a href="/" class="nav-brand">
+        <img src="/assets/logo.svg" alt="NoteSphere Logo" width="32" height="32" />
+        <span>NoteSphere</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/browse.html" class="active">Browse Notes</a></li>
+      </ul>
+
+      <div class="nav-actions" id="nav-auth-container">
+        <!-- Injected dynamically by auth.js -->
+        <a href="/login.html" class="btn btn-secondary btn-sm">Sign In</a>
+        <a href="/register.html" class="btn btn-primary btn-sm">Get Started</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="container" style="padding-top: 40px; padding-bottom: 60px;">
+    <!-- Page Header -->
+    <div style="margin-bottom: 28px;">
+      <h1>Browse Notes</h1>
+      <p style="color: var(--color-muted); margin-top: 6px;">
+        Find academic notes, summaries, and PDF materials by subject, semester, or keyword.
+      </p>
+    </div>
+
+    <!-- Search and Filter Bar -->
+    <div class="browse-filters-bar" style="background-color: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 18px 20px; margin-bottom: 32px; display: flex; gap: 14px; align-items: center; flex-wrap: wrap; box-shadow: var(--shadow-subtle);">
+      <!-- Search Input -->
+      <div style="flex: 2; min-width: 220px;">
+        <input 
+          type="text" 
+          id="search-input" 
+          class="form-control" 
+          placeholder="Search by note title or keyword..." 
+        />
+      </div>
+
+      <!-- Filter Controls -->
+      <div class="filter-controls" style="display: flex; gap: 12px; flex: 3; flex-wrap: wrap;">
+        <!-- Semester Filter -->
+        <select id="semester-filter" class="form-control" style="flex: 1; min-width: 130px;">
+          <option value="">All Semesters</option>
+          <option value="1">Semester 1</option>
+          <option value="2">Semester 2</option>
+          <option value="3">Semester 3</option>
+          <option value="4">Semester 4</option>
+          <option value="5">Semester 5</option>
+          <option value="6">Semester 6</option>
+          <option value="7">Semester 7</option>
+          <option value="8">Semester 8</option>
+        </select>
+
+        <!-- Subject Filter -->
+        <select id="subject-filter" class="form-control" style="flex: 1.5; min-width: 170px;">
+          <option value="">All Subjects</option>
+        </select>
+
+        <!-- Sort Filter -->
+        <select id="sort-filter" class="form-control" style="flex: 1; min-width: 140px;">
+          <option value="newest">Newest First</option>
+          <option value="downloads">Most Downloaded</option>
+        </select>
+
+        <!-- Reset Button -->
+        <button id="clear-filters-btn" class="btn btn-secondary" style="white-space: nowrap;">
+          Clear Filters
+        </button>
+      </div>
+    </div>
+
+    <!-- Notes Grid Container -->
+    <div id="notes-grid" class="notes-grid">
+      <!-- Populated via browse.js -->
+    </div>
+
+    <!-- Empty State -->
+    <div id="empty-state" class="empty-state" style="display: none;">
+      <div class="empty-state-icon">
+        <svg fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m5.231 13.481L15 17.25m-4.5-15H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+        </svg>
+      </div>
+      <h3>No Notes Found</h3>
+      <p>We couldn't find any study notes matching your current filter criteria. Try searching with different keywords or clearing your filters.</p>
+      <div class="empty-state-actions">
+        <button onclick="document.getElementById('clear-filters-btn').click()" class="btn btn-primary">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="margin-right: 2px;">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+          Clear All Filters
+        </button>
+        <a href="/upload.html" class="btn btn-secondary">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="margin-right: 2px;">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+          </svg>
+          Upload Notes
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <img src="/assets/logo.svg" alt="NoteSphere" width="24" height="24" />
+        <strong>NoteSphere</strong> — Cloud-Based Notes Sharing Platform
+      </div>
+      <div>
+        <span>All Rights Reserved NoteSphere @ 2026 | Harsh Bhayekar</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Firebase SDK (Compat) -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  <script src="/js/firebase-config.js"></script>
+  <script src="/js/utils.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/browse.js"></script>
+</body>
+</html>

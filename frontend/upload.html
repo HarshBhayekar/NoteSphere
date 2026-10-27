@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Upload Notes | NoteSphere</title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/upload.css" />
+  <link rel="stylesheet" href="/css/responsive.css" />
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <div class="container">
+      <a href="/" class="nav-brand">
+        <img src="/assets/logo.svg" alt="NoteSphere Logo" width="32" height="32" />
+        <span>NoteSphere</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/browse.html">Browse Notes</a></li>
+      </ul>
+
+      <div class="nav-actions" id="nav-auth-container">
+        <a href="/login.html" class="btn btn-secondary btn-sm">Sign In</a>
+        <a href="/register.html" class="btn btn-primary btn-sm">Get Started</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Upload Section -->
+  <main class="upload-container">
+    <div class="upload-card">
+      <div class="upload-header">
+        <h1>Upload Study Materials</h1>
+        <p>Contribute verified notes and study guides to help fellow students.</p>
+      </div>
+
+      <!-- Feedback Alert -->
+      <div id="upload-alert" class="auth-alert" style="display: none; margin-bottom: 24px;"></div>
+
+      <form id="upload-form">
+        <!-- PDF Dropzone -->
+        <div id="dropzone" class="dropzone">
+          <input type="file" id="file-input" accept=".pdf,application/pdf" style="display: none;" />
+          <div class="dropzone-icon">
+            <svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 0 1-1.41-8.775 5.25 5.25 0 0 1 10.233-2.33 3 3 0 0 1 3.758 3.848A3.752 3.752 0 0 1 18 19.5H6.75Z" />
+            </svg>
+          </div>
+          <div class="dropzone-text">Drag and drop your PDF here</div>
+          <div class="dropzone-subtext">or <span style="color:var(--color-primary); text-decoration:underline;">Browse Files</span> on your computer</div>
+          <div style="font-size: 0.75rem; color: var(--color-muted); margin-top: 8px;">
+            PDF only &middot; Maximum 10 MB
+          </div>
+        </div>
+
+        <!-- Selected File Display -->
+        <div id="file-selected-box" class="file-selected-box">
+          <div class="file-selected-info">
+            <div class="note-icon" style="width:32px; height:32px; font-size:0.7rem;">PDF</div>
+            <div>
+              <div id="file-selected-name" class="file-selected-name">document.pdf</div>
+              <div id="file-selected-size" class="file-selected-size">0 KB</div>
+            </div>
+          </div>
+          <button type="button" id="remove-file-btn" class="remove-file-btn">Remove</button>
+        </div>
+
+        <!-- Title -->
+        <div class="form-group">
+          <label for="title-input" class="form-label">Note Title *</label>
+          <input 
+            type="text" 
+            id="title-input" 
+            class="form-control" 
+            placeholder="e.g. DBMS Unit 1 - Relational Algebra & Calculus" 
+            required 
+            maxlength="150" 
+          />
+        </div>
+
+        <!-- Semester & Subject Row -->
+        <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 16px; margin-bottom: 20px;">
+          <div>
+            <label for="semester-select" class="form-label">Semester *</label>
+            <select id="semester-select" class="form-control" required>
+              <option value="">Select...</option>
+              <option value="1">Semester 1</option>
+              <option value="2">Semester 2</option>
+              <option value="3">Semester 3</option>
+              <option value="4">Semester 4</option>
+              <option value="5">Semester 5</option>
+              <option value="6">Semester 6</option>
+              <option value="7">Semester 7</option>
+              <option value="8">Semester 8</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="subject-select" class="form-label">Subject *</label>
+            <select id="subject-select" class="form-control" required>
+              <option value="">Select a Subject...</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Description -->
+        <div class="form-group">
+          <label for="description-input" class="form-label">Description (Optional)</label>
+          <textarea 
+            id="description-input" 
+            class="form-control" 
+            rows="3" 
+            placeholder="Brief overview of topics, chapters, or syllabus covered in this PDF..."
+            maxlength="1000"
+          ></textarea>
+        </div>
+
+        <!-- Tags -->
+        <div class="form-group">
+          <label for="tags-input" class="form-label">Tags / Keywords (Optional)</label>
+          <input 
+            type="text" 
+            id="tags-input" 
+            class="form-control" 
+            placeholder="Comma-separated (e.g. SQL, Normalization, Unit 1, Exam Prep)" 
+          />
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" id="submit-upload-btn" class="btn btn-primary btn-lg" style="width: 100%; margin-top: 10px;">
+          Publish Notes
+        </button>
+
+        <p style="font-size: 0.8125rem; color: var(--color-muted); text-align: center; margin-top: 14px;">
+          Your notes are instantly published and available to all students.
+        </p>
+      </form>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div><strong>NoteSphere</strong> — Cloud-Based Notes Sharing Platform</div>
+      <div><span>All Rights Reserved NoteSphere @ 2026 | Harsh Bhayekar</span></div>
+    </div>
+  </footer>
+
+  <!-- Firebase SDK (Compat) -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  <script src="/js/firebase-config.js"></script>
+  <script src="/js/utils.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/upload.js"></script>
+</body>
+</html>

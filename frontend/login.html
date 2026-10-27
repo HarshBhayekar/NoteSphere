@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign In | NoteSphere</title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/auth.css" />
+  <link rel="stylesheet" href="/css/responsive.css" />
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <div class="container">
+      <a href="/" class="nav-brand">
+        <img src="/assets/logo.svg" alt="NoteSphere Logo" width="32" height="32" />
+        <span>NoteSphere</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/browse.html">Browse Notes</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="/register.html" class="btn btn-primary btn-sm">Create Account</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Auth Page Content -->
+  <main class="auth-page">
+    <div class="auth-card">
+      <div class="auth-header">
+        <div class="auth-logo">
+          <img src="/assets/logo.svg" alt="NoteSphere Logo" width="48" height="48" />
+        </div>
+        <h1>Welcome Back</h1>
+        <p>Sign in to your NoteSphere study workspace</p>
+      </div>
+
+      <!-- Alert Box -->
+      <div id="auth-alert" class="auth-alert"></div>
+
+      <!-- Login Form -->
+      <form id="login-form">
+        <div class="form-group">
+          <label for="login-email" class="form-label">Email Address *</label>
+          <input 
+            type="email" 
+            id="login-email" 
+            class="form-control" 
+            placeholder="student@example.edu" 
+            required 
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="login-password" class="form-label">Password *</label>
+          <div class="password-input-wrapper">
+            <input 
+              type="password" 
+              id="login-password" 
+              class="form-control" 
+              placeholder="••••••••" 
+              required 
+            />
+            <button type="button" id="toggle-password-btn" class="password-toggle-btn" title="Toggle password visibility">
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <button type="submit" id="login-submit-btn" class="btn btn-primary btn-lg" style="width: 100%; margin-top: 8px;">
+          Sign In
+        </button>
+      </form>
+
+      <!-- Demo Account Shortcut -->
+      <div style="margin-top: 24px; padding: 14px; background: #F8FAFC; border-radius: var(--radius-md); border: 1px solid var(--color-border); font-size: 0.8125rem;">
+        <div style="font-weight: 600; color: var(--color-heading); margin-bottom: 6px;">Demo Shortcut (1-Click Fill):</div>
+        <button type="button" onclick="fillDemo('student@notesphere.edu', 'student123')" class="btn btn-secondary btn-sm" style="width: 100%;">
+          Fill Demo Account
+        </button>
+      </div>
+
+      <div class="auth-footer">
+        Don't have an account? <a href="/register.html">Create an account</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div><strong>NoteSphere</strong> — Cloud-Based Notes Sharing Platform</div>
+      <div><span>All Rights Reserved NoteSphere @ 2026 | Harsh Bhayekar</span></div>
+    </div>
+  </footer>
+
+  <!-- Firebase SDK (Compat) -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  <script src="/js/firebase-config.js"></script>
+  <script src="/js/utils.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script>
+    function fillDemo(email, pass) {
+      document.getElementById('login-email').value = email;
+      document.getElementById('login-password').value = pass;
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const form = document.getElementById("login-form");
+      const alertBox = document.getElementById("auth-alert");
+      const togglePass = document.getElementById("toggle-password-btn");
+      const passInput = document.getElementById("login-password");
+
+      togglePass.addEventListener("click", () => {
+        passInput.type = passInput.type === "password" ? "text" : "password";
+      });
+
+      function showAlert(htmlMessage, type = "error") {
+        alertBox.className = `auth-alert ${type}`;
+        alertBox.innerHTML = htmlMessage;
+        alertBox.style.display = "block";
+      }
+
+      function hideAlert() {
+        alertBox.className = "auth-alert";
+        alertBox.style.display = "none";
+        alertBox.innerHTML = "";
+      }
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        hideAlert();
+
+        const email = document.getElementById("login-email").value.trim();
+        const password = passInput.value;
+        const btn = document.getElementById("login-submit-btn");
+
+        if (!email || !password) {
+          showAlert("Please enter both your email address and password.");
+          return;
+        }
+
+        btn.disabled = true;
+        btn.textContent = "Signing In...";
+
+        try {
+          const user = await handleSignIn(email, password);
+          showAlert(`Welcome back, ${escapeHtml(user.displayName || user.email)}! Redirecting...`, "success");
+          showToast(`Welcome back, ${user.displayName || user.email}!`, "success");
+          setTimeout(() => {
+            window.location.href = "/browse.html";
+          }, 800);
+        } catch (err) {
+          console.error("Login error:", err);
+          const friendlyMessage = typeof formatAuthErrorMessage === "function"
+            ? formatAuthErrorMessage(err)
+            : (err.message || "Unable to sign in. Please check your credentials and try again.");
+          showAlert(friendlyMessage, "error");
+        } finally {
+          btn.disabled = false;
+          btn.textContent = "Sign In";
+        }
+      });
+    });
+  </script>
+</body>
+</html>

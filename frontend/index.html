@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NoteSphere | Cloud-Based Notes Sharing Platform</title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/responsive.css" />
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <div class="container">
+      <a href="/" class="nav-brand">
+        <img src="/assets/logo.svg" alt="NoteSphere Logo" width="32" height="32" />
+        <span>NoteSphere</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="/" class="active">Home</a></li>
+        <li><a href="/browse.html">Browse Notes</a></li>
+      </ul>
+
+      <div class="nav-actions" id="nav-auth-container">
+        <!-- Dynamically injected by auth.js -->
+        <a href="/login.html" class="btn btn-secondary btn-sm">Sign In</a>
+        <a href="/register.html" class="btn btn-primary btn-sm">Get Started</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section" style="padding: 64px 0 48px; background: linear-gradient(180deg, #EFF6FF 0%, #F8FAFC 100%); border-bottom: 1px solid var(--color-border);">
+    <div class="container" style="text-align: center; max-width: 800px;">
+      <span class="status-pill" style="background:#DBEAFE; color:#1D4ED8; margin-bottom:16px;">
+        Cloud-Based Academic Platform
+      </span>
+      <h1 class="hero-headline" style="margin-bottom: 16px; font-size: 2.5rem; letter-spacing: -0.02em;">
+        Your Study Materials, All in One Place.
+      </h1>
+      <p style="font-size: 1.125rem; color: var(--color-body); margin-bottom: 32px;">
+        Discover, share, and access academic notes organized by department, semester, and subject. Verified by administrators, hosted in the cloud.
+      </p>
+
+      <!-- Search Bar -->
+      <form action="/browse.html" method="GET" style="display: flex; gap: 8px; max-width: 600px; margin: 0 auto 32px; background: white; padding: 6px; border-radius: var(--radius-lg); border: 1px solid var(--color-border); box-shadow: var(--shadow-card);">
+        <input 
+          type="text" 
+          name="search" 
+          placeholder="Search by subject, title, or topic (e.g. DBMS, Cloud Computing)..." 
+          class="form-control" 
+          style="border: none; box-shadow: none; padding-left: 14px;" 
+        />
+        <button type="submit" class="btn btn-primary">Search Notes</button>
+      </form>
+
+      <!-- Action Buttons -->
+      <div class="hero-actions" style="display: flex; justify-content: center; gap: 14px;">
+        <a href="/browse.html" class="btn btn-primary btn-lg">Browse All Notes</a>
+        <a href="/upload.html" class="btn btn-secondary btn-lg">Upload Notes</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Browse by Semester Section -->
+  <section style="padding: 56px 0;">
+    <div class="container">
+      <div style="text-align: center; margin-bottom: 36px;">
+        <h2>Browse by Semester</h2>
+        <p style="color: var(--color-muted); margin-top: 6px;">Quick shortcuts to find curriculum notes for your current academic term.</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 16px;">
+        <a href="/browse.html?semester=1" class="note-card" style="text-align: center; padding: 20px 12px;">
+          <div style="font-size: 1.5rem; font-weight: 700; color: var(--color-primary); margin-bottom: 4px;">Sem 1</div>
+          <div style="font-size: 0.8125rem; color: var(--color-muted);">First Year</div>
+        </a>
+        <a href="/browse.html?semester=2" class="note-card" style="text-align: center; padding: 20px 12px;">
+          <div style="font-size: 1.5rem; font-weight: 700; color: var(--color-primary); margin-bottom: 4px;">Sem 2</div>
+          <div style="font-size: 0.8125rem; color: var(--color-muted);">First Year</div>
+        </a>
+        <a href="/browse.html?semester=3" class="note-card" style="text-align: center; padding: 20px 12px;">
+          <div style="font-size: 1.5rem; font-weight: 700; color: var(--color-primary); margin-bottom: 4px;">Sem 3</div>
+          <div style="font-size: 0.8125rem; color: var(--color-muted);">Second Year</div>
+        </a>
+        <a href="/browse.html?semester=4" class="note-card" style="text-align: center; padding: 20px 12px;">
+          <div style="font-size: 1.5rem; font-weight: 700; color: var(--color-primary); margin-bottom: 4px;">Sem 4</div>
+          <div style="font-size: 0.8125rem; color: var(--color-muted);">Second Year</div>
+        </a>
+        <a href="/browse.html?semester=5" class="note-card" style="text-align: center; padding: 20px 12px;">
+          <div style="font-size: 1.5rem; font-weight: 700; color: var(--color-primary); margin-bottom: 4px;">Sem 5</div>
+          <div style="font-size: 0.8125rem; color: var(--color-muted);">Third Year</div>
+        </a>
+        <a href="/browse.html?semester=6" class="note-card" style="text-align: center; padding: 20px 12px;">
+          <div style="font-size: 1.5rem; font-weight: 700; color: var(--color-primary); margin-bottom: 4px;">Sem 6</div>
+          <div style="font-size: 0.8125rem; color: var(--color-muted);">Third Year</div>
+        </a>
+        <a href="/browse.html?semester=7" class="note-card" style="text-align: center; padding: 20px 12px;">
+          <div style="font-size: 1.5rem; font-weight: 700; color: var(--color-primary); margin-bottom: 4px;">Sem 7</div>
+          <div style="font-size: 0.8125rem; color: var(--color-muted);">Final Year</div>
+        </a>
+        <a href="/browse.html?semester=8" class="note-card" style="text-align: center; padding: 20px 12px;">
+          <div style="font-size: 1.5rem; font-weight: 700; color: var(--color-primary); margin-bottom: 4px;">Sem 8</div>
+          <div style="font-size: 0.8125rem; color: var(--color-muted);">Final Year</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Recently Published Notes -->
+  <section style="padding: 32px 0 56px;">
+    <div class="container">
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 24px;">
+        <div>
+          <h2>Recently Published Notes</h2>
+          <p style="color: var(--color-muted); margin-top: 4px;">Latest approved academic materials from our student community.</p>
+        </div>
+        <a href="/browse.html" class="btn btn-secondary btn-sm">View All Notes &rarr;</a>
+      </div>
+
+      <div id="home-notes-grid" class="notes-grid">
+        <!-- Injected dynamically by home script -->
+        <div class="skeleton-card"><div class="skeleton-line" style="width: 40%;"></div><div class="skeleton-line" style="width: 80%;"></div></div>
+        <div class="skeleton-card"><div class="skeleton-line" style="width: 40%;"></div><div class="skeleton-line" style="width: 80%;"></div></div>
+        <div class="skeleton-card"><div class="skeleton-line" style="width: 40%;"></div><div class="skeleton-line" style="width: 80%;"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action Banner -->
+  <section style="background-color: var(--color-primary-light); border-top: 1px solid #BFDBFE; border-bottom: 1px solid #BFDBFE; padding: 48px 0; text-align: center;">
+    <div class="container" style="max-width: 600px;">
+      <h2 style="color: var(--color-primary); margin-bottom: 8px;">Have notes to share?</h2>
+      <p style="color: var(--color-body); margin-bottom: 24px;">
+        Help fellow students succeed by uploading your lecture notes, summaries, and revision guides.
+      </p>
+      <a href="/upload.html" class="btn btn-primary btn-lg">Upload Your Notes</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <img src="/assets/logo.svg" alt="NoteSphere" width="24" height="24" />
+        <strong>NoteSphere</strong> — Cloud-Based Notes Sharing Platform
+      </div>
+      <div>
+        <span>All Rights Reserved NoteSphere @ 2026 | Harsh Bhayekar</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Firebase SDK (Compat) -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  <script src="/js/firebase-config.js"></script>
+  <script src="/js/utils.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+      const grid = document.getElementById("home-notes-grid");
+      try {
+        const res = await api.getNotes({ limit: 6, sort: "newest" });
+        const notes = res.data || [];
+        if (notes.length === 0) {
+          grid.innerHTML = `
+            <div style="grid-column: 1 / -1; text-align:center; padding: 32px; color: var(--color-muted);">
+              No notes published yet. Be the first to <a href="/upload.html">upload notes</a>!
+            </div>
+          `;
+          return;
+        }
+
+        grid.innerHTML = notes.map((note) => `
+          <div class="note-card">
+            <div class="note-card-header">
+              <div class="note-icon">PDF</div>
+              <span class="sem-badge">Semester ${note.semester}</span>
+            </div>
+            <h3 class="note-card-title">${escapeHtml(note.title)}</h3>
+            <p class="note-card-subject">${escapeHtml(note.subjectName)}</p>
+            <div style="margin-top: 12px; margin-bottom: 16px; display: flex; gap: 8px;">
+              <a href="/note-details.html?id=${note.id}" class="btn btn-secondary btn-sm" style="flex:1;">Details</a>
+              <a href="/api/notes/${note.id}/download" class="btn btn-primary btn-sm" target="_blank" style="flex:1;">Download</a>
+            </div>
+            <div class="note-card-footer">
+              <span>${formatFileSize(note.fileSizeBytes)}</span>
+              <span>${note.downloadCount || 0} downloads</span>
+              <span>${formatDate(note.createdAt)}</span>
+            </div>
+          </div>
+        `).join("");
+      } catch (e) {
+        console.error(e);
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>window.location.replace("/my-uploads.html");</script>
+  <title>NoteSphere | Study Workspace</title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/dashboard.css" />
+  <link rel="stylesheet" href="/css/responsive.css" />
+  <style>
+    .filter-tab-btn {
+      background: none;
+      border: none;
+      padding: 8px 16px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--color-muted);
+      cursor: pointer;
+      border-radius: var(--radius-md);
+      transition: all var(--transition-fast);
+    }
+    .filter-tab-btn:hover {
+      color: var(--color-heading);
+      background-color: var(--color-background);
+    }
+    .filter-tab-btn.active {
+      background-color: var(--color-primary-light);
+      color: var(--color-primary);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <div class="container">
+      <a href="/" class="nav-brand">
+        <img src="/assets/logo.svg" alt="NoteSphere Logo" width="32" height="32" />
+        <span>NoteSphere</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/browse.html">Browse Notes</a></li>
+        <li><a href="/admin-dashboard.html" class="active" style="color:var(--color-warning);">Admin Dashboard</a></li>
+      </ul>
+
+      <div class="nav-actions" id="nav-auth-container">
+        <!-- Injected dynamically by auth.js -->
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="container" style="padding-top: 36px; padding-bottom: 60px;">
+    <!-- Dashboard Header -->
+    <div class="dashboard-header">
+      <div class="dashboard-title">
+        <h1>Administrator Dashboard</h1>
+        <p>Review study materials, approve or reject submissions, and manage cloud assets.</p>
+      </div>
+      <div>
+        <a href="/upload.html" class="btn btn-secondary btn-sm">+ Upload as Admin</a>
+      </div>
+    </div>
+
+    <!-- Stats Cards Grid -->
+    <div class="stats-grid">
+      <!-- Total Notes -->
+      <div class="stat-card">
+        <div class="stat-icon-wrapper blue">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+          </svg>
+        </div>
+        <div class="stat-info">
+          <div id="stat-total" class="stat-value">0</div>
+          <div class="stat-label">Total Submissions</div>
+        </div>
+      </div>
+
+      <!-- Pending Moderation -->
+      <div class="stat-card">
+        <div class="stat-icon-wrapper amber">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+          </svg>
+        </div>
+        <div class="stat-info">
+          <div id="stat-pending" class="stat-value">0</div>
+          <div class="stat-label">Pending Review</div>
+        </div>
+      </div>
+
+      <!-- Published Notes -->
+      <div class="stat-card">
+        <div class="stat-icon-wrapper green">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+          </svg>
+        </div>
+        <div class="stat-info">
+          <div id="stat-approved" class="stat-value">0</div>
+          <div class="stat-label">Published / Approved</div>
+        </div>
+      </div>
+
+      <!-- Total Downloads -->
+      <div class="stat-card">
+        <div class="stat-icon-wrapper purple">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+          </svg>
+        </div>
+        <div class="stat-info">
+          <div id="stat-downloads" class="stat-value">0</div>
+          <div class="stat-label">Total Downloads</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Moderation Table Card -->
+    <div class="table-card">
+      <div class="table-card-header">
+        <h2>Moderation Queue</h2>
+        <!-- Filter Tabs -->
+        <div style="display: flex; gap: 8px;">
+          <button type="button" class="filter-tab-btn active" data-status="pending">Pending</button>
+          <button type="button" class="filter-tab-btn" data-status="approved">Approved</button>
+          <button type="button" class="filter-tab-btn" data-status="rejected">Rejected</button>
+          <button type="button" class="filter-tab-btn" data-status="">All</button>
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Document Title</th>
+              <th>Subject & Semester</th>
+              <th>Uploader</th>
+              <th>Submission Date</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="moderation-tbody">
+            <!-- Dynamically populated by admin-dashboard.js -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <!-- Rejection Modal -->
+  <div id="reject-modal" class="modal-backdrop">
+    <div class="modal-box">
+      <h3 style="margin-bottom: 8px;">Reject Note Submission</h3>
+      <p style="font-size: 0.875rem; color: var(--color-muted); margin-bottom: 16px;">
+        Provide feedback for "<strong id="reject-note-title">Title</strong>" explaining why it cannot be approved.
+      </p>
+
+      <div class="form-group">
+        <label for="rejection-reason-input" class="form-label">Rejection Reason *</label>
+        <textarea 
+          id="rejection-reason-input" 
+          class="form-control" 
+          rows="3" 
+          placeholder="e.g. Scanned pages are blurry or incomplete; incorrect subject code; unauthorized material..."
+        ></textarea>
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;">
+        <button type="button" onclick="closeModal('reject-modal')" class="btn btn-secondary">Cancel</button>
+        <button type="button" onclick="confirmRejection()" class="btn btn-danger">Confirm Rejection</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Modal -->
+  <div id="delete-modal" class="modal-backdrop">
+    <div class="modal-box">
+      <h3 style="color: var(--color-error); margin-bottom: 8px;">Delete Note & Cloud Asset</h3>
+      <p style="font-size: 0.875rem; color: var(--color-body); margin-bottom: 20px;">
+        Are you sure you want to permanently delete "<strong id="delete-note-title">Title</strong>"?
+        <br><br>
+        This will permanently remove the metadata record from <strong>Cloud Firestore</strong> and destroy the PDF asset from <strong>Cloudinary</strong>. This action cannot be undone.
+      </p>
+
+      <div style="display: flex; justify-content: flex-end; gap: 10px;">
+        <button type="button" onclick="closeModal('delete-modal')" class="btn btn-secondary">Cancel</button>
+        <button type="button" onclick="confirmDeletion()" class="btn btn-danger">Permanently Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div><strong>NoteSphere</strong> — Cloud-Based Notes Sharing Platform</div>
+      <div><span>All Rights Reserved NoteSphere @ 2026 | Harsh Bhayekar</span></div>
+    </div>
+  </footer>
+
+  <!-- Firebase SDK (Compat) -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  <script src="/js/firebase-config.js"></script>
+  <script src="/js/utils.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/admin-dashboard.js"></script>
+</body>
+</html>
